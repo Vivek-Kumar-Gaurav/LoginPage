@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        .all {
+            min-height: 400px;
+            width: 100%;
+            background-color: red;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 20px; /* Adds spacing between cards */
+        }
+        .card {
+            min-width: 200px;
+            height: 350px;
+            background-color: #242323;
+            border-radius: 12px;
+            position: relative;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 20px;
+            font-weight: bold;
+            transition: background 0.8s ease-in-out; /* Smooth transition */
+        }
+        .card:hover {
+            background: radial-gradient(
+                400px circle at var(--mouse-x) var(--mouse-y),
+                hsla(var(--color), 1),
+                rgba(255,255,255,0.12)
+            );
+        }
+    </style>
+</head>
+<body>
+    <div class="all">
+        <div class="card">Vivek</div>
+        <div class="card">Vivek</div>
+        <div class="card">Vivek</div>
+    </div>
+
+    <script>
+        const cards = document.querySelectorAll('.card');
+
+        cards.forEach((card) => {
+            card.addEventListener('mousemove', (e) => {
+                setTimeout(() => { // Delay background update
+                    const { left, top, width, height } = card.getBoundingClientRect();
+                    const x = ((e.clientX - left) / width) * 100;
+                    const y = ((e.clientY - top) / height) * 100;
+
+                    card.style.setProperty('--mouse-x', `${x}%`);
+                    card.style.setProperty('--mouse-y', `${y}%`);
+                    card.style.setProperty('--color', '200, 100%, 50%'); // Adjust color as needed
+                }, 300); // 300ms delay
+            });
+        });
+    </script>
+</body>
+</html>
